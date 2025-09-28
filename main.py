@@ -5,6 +5,33 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
+def user_info_filler(driver_obj):
+	# Locating & clicking the Elements drop down.
+	# elements_drop_down_xpath = '//*[@id="app"]/div/div/div/div[1]/div/div/div[1]'
+	elements_drop_down_xpath = '//*[@id="app"]/div/div/div/div[1]/div/div/div[1]/span/div'
+	# elements_drop_down_xpath = '//*[@id="app"]/div/div/div/div[1]/div/div/div[1]/span/div/div[1]'
+	elements_drop_down = wait.until(EC.visibility_of_element_located((By.XPATH, elements_drop_down_xpath)))
+	elements_drop_down.click()
+
+	# Locating & clicking the Text Box.
+	text_box_text_box = wait.until(EC.visibility_of_element_located((By.ID, 'item-0')))
+	text_box_text_box.click()
+
+	# Locating Text Box, username, user email, current address, permanent address text_boxes & finally submit button.
+	user_name_text_box = wait.until(EC.visibility_of_element_located((By.ID, 'userName')))
+	user_email_text_box = wait.until(EC.visibility_of_element_located((By.ID, 'userEmail')))
+	current_address_text_box = wait.until(EC.visibility_of_element_located((By.ID, 'currentAddress')))
+	permanent_address_text_box = wait.until(EC.visibility_of_element_located((By.ID, 'permanentAddress')))
+	submit_button = driver.find_element(By.ID, 'submit')
+
+	# Performing the actions on located elements.
+	user_name_text_box.send_keys("Arun Pandian")
+	user_email_text_box.send_keys("arunpandian1058@gmail.com")
+	current_address_text_box.send_keys("Pallikaranai, Chennai, Tamil Nadu, India")
+	permanent_address_text_box.send_keys("Pallikaranai, Chennai, Tamil Nadu, India")
+	driver_obj.execute_script("arguments[0].click();", submit_button)
+
 chrome_options = Options()
 chrome_options.add_argument("--disable-search-engine-choice-screen")
 
@@ -30,6 +57,9 @@ code and makes increases a chance of an element getting clicked.
 
 Read the Selenium docs"""
 driver.execute_script("arguments[0].click()", login_button)
+
+# Function to fill the user info in the webpage.
+user_info_filler(driver)
 
 if input("Enter 'yes' to quit the driver: ") == 'yes':
 	driver.quit()
