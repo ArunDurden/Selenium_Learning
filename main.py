@@ -31,5 +31,15 @@ code and makes increases a chance of an element getting clicked.
 Read the Selenium docs"""
 driver.execute_script("arguments[0].click()", login_button)
 
+"""In order to run the below Upload and Download, comment out the above user_info_filler function call."""
+# Locating & clicking the Upload and Download.
+upload_and_download = wait.until(EC.visibility_of_element_located((By.ID, 'item-7')))
+driver.execute_script("arguments[0].click();", upload_and_download)
+
+
+# Locating & clicking the Download button.
+download_button = driver.find_element(By.ID, 'downloadButton')
+driver.execute_script("arguments[0].click();", download_button)
+
 if input("Enter 'yes' to quit the driver: ") == 'yes':
 	driver.quit()
